@@ -5,9 +5,9 @@ import {
   Reducer,
 } from '@reduxjs/toolkit';
 import { Photo } from '../entities/photo';
-import {MyPhotosState} from "../index";
+import { MyAlbumState } from '../index';
 
-export type PhotosActionsType =
+export type AlbumActionsType =
   | PayloadAction<Photo[]>
   | PayloadAction<boolean>
   | PayloadAction<string>;
@@ -17,7 +17,7 @@ interface AlertType {
   message: string;
 }
 
-export interface PhotosState {
+export interface AlbumState {
   photos: Photo[];
   alert: AlertType;
   isLoading: boolean;
@@ -25,22 +25,22 @@ export interface PhotosState {
 
 export const NO_ALERTS: AlertType = { showAlert: false, message: '' };
 
-export const PHOTOS_INITIAL_STATE: PhotosState = {
+export const ALBUM_INITIAL_STATE: AlbumState = {
   photos: [],
   alert: NO_ALERTS,
   isLoading: false,
 };
 
-export const albumSelector = (state: MyPhotosState): PhotosState => state.album
+export const albumSelector = (state: MyAlbumState): AlbumState => state.album;
 
-export const setLoading = createAction<boolean>('duck/photos/setLoading');
-export const updatePhotos = createAction<Photo[]>('duck/photos/updateUser');
-export const showAlert = createAction<string>('duck/photos/showAlert');
+export const setLoading = createAction<boolean>('duck/album/setLoading');
+export const updatePhotos = createAction<Photo[]>('duck/album/updateUser');
+export const showAlert = createAction<string>('duck/album/showAlert');
 
 export function handleSetLoading(
-  state: PhotosState,
+  state: AlbumState,
   action: PayloadAction<boolean>,
-): PhotosState {
+): AlbumState {
   return {
     ...state,
     isLoading: action.payload,
@@ -48,9 +48,9 @@ export function handleSetLoading(
 }
 
 export function handleUpdatePhotos(
-  state: PhotosState,
+  state: AlbumState,
   action: PayloadAction<Photo[]>,
-): PhotosState {
+): AlbumState {
   return {
     ...state,
     photos: action.payload,
@@ -58,9 +58,9 @@ export function handleUpdatePhotos(
 }
 
 export function handleShowAlert(
-  state: PhotosState,
+  state: AlbumState,
   action: PayloadAction<string>,
-): PhotosState {
+): AlbumState {
   return {
     ...state,
     alert: {
@@ -70,10 +70,10 @@ export function handleShowAlert(
   };
 }
 
-export const photosReducer: Reducer<
-  PhotosState,
-  PhotosActionsType
-  > = createReducer(PHOTOS_INITIAL_STATE, {
+export const albumReducer: Reducer<
+  AlbumState,
+  AlbumActionsType
+> = createReducer(ALBUM_INITIAL_STATE, {
   [updatePhotos.type]: handleUpdatePhotos,
   [showAlert.type]: handleShowAlert,
   [setLoading.type]: handleSetLoading,

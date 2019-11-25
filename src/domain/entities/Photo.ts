@@ -4,7 +4,7 @@ export class Photo {
     public albumId: string,
     public title: string,
     public url: string,
-    public thumbnailUrl: string
+    public thumbnailUrl: string,
   ) {
     this.id = id;
     this.albumId = albumId;

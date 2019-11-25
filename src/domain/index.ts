@@ -2,25 +2,25 @@ import { configureStore, EnhancedStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import { ReducersMapObject } from 'redux';
 import {
-  PhotosActionsType,
-  photosReducer,
-  PhotosState
-} from './ducks/photosReducer';
+  AlbumActionsType,
+  albumReducer,
+  AlbumState,
+} from './ducks/albumReducer';
 import { rootSaga } from './sagas';
 
-export interface MyPhotosState {
-  readonly album: PhotosState
+export interface MyAlbumState {
+  readonly album: AlbumState;
 }
 
-export type MyPhotosActions = PhotosActionsType
+export type MyAlbumActions = AlbumActionsType;
 
-export type MyPhotosStorage = EnhancedStore<MyPhotosState, MyPhotosActions>;
+export type MyAlbumStore = EnhancedStore<MyAlbumState, MyAlbumActions>;
 
-const rootReducer: ReducersMapObject<MyPhotosState, MyPhotosActions> = {
-  album: photosReducer,
+const rootReducer: ReducersMapObject<MyAlbumState, MyAlbumActions> = {
+  album: albumReducer,
 };
 
-export const initializeDomainLayer = (): MyPhotosStorage => {
+export const initializeDomainLayer = (): MyAlbumStore => {
   const sagaMiddleware = createSagaMiddleware();
   const middleware = [sagaMiddleware];
   const store = configureStore({
@@ -31,5 +31,4 @@ export const initializeDomainLayer = (): MyPhotosStorage => {
   sagaMiddleware.run(rootSaga);
 
   return store;
-
-}
+};
